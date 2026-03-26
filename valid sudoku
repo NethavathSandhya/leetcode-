@@ -1,0 +1,22 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        def issafe(bd,r,c):
+            for i in range(9):
+                if bd[r][i]==bd[r][c] and i!=c:
+                    return False
+            for i in range(9):
+                if bd[i][c]==bd[r][c] and i!=r:
+                    return False
+            x=3*(r//3)
+            y=3*(c//3)
+            for i in range(x,x+3):
+                for j in range(y,y+3):
+                    if bd[i][j]==bd[r][c] and (i!=r or j!=c):
+                        return False
+            return True
+        for r in range(9):
+            for c in range(9):
+                if board[r][c]!=".":
+                    if not issafe(board,r,c):
+                        return False
+        return True  
